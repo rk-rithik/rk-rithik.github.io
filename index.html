@@ -6,7 +6,7 @@
 <title>J. Rithik — Cyber Security Student</title>
 <meta name="description" content="Portfolio of J. Rithik, Cyber Security student at SRM Valliammai Engineering College.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Unbounded:wght@600;700;800&family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Unbounded:wght@600;700;800&family=Syne:wght@700;800&family=Bodoni+Moda:ital,wght@1,700;1,900&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#F7F5F2;
@@ -81,13 +81,14 @@
     margin-bottom:0;
   }
   .hero-name .big-j{
-    font-family:'Instrument Serif',serif;font-style:italic;
-    font-size:clamp(72px,9vw,116px);color:var(--accent);font-weight:400;
-    line-height:0.7;letter-spacing:-0.01em;
+    font-family:'Bodoni Moda',serif;font-style:italic;font-weight:700;
+    font-size:clamp(76px,9.5vw,120px);color:var(--accent);
+    line-height:0.65;letter-spacing:0;
   }
   .hero-name .name-rest{
-    font-size:clamp(28px,3.6vw,42px);color:var(--heading);font-weight:700;
-    letter-spacing:-0.01em;
+    font-family:'Unbounded',sans-serif;
+    font-size:clamp(28px,3.6vw,42px);color:var(--heading);font-weight:800;
+    letter-spacing:-0.02em;
   }
 
   /* Avatar */
@@ -96,7 +97,33 @@
     width:180px;height:180px;border-radius:50%;flex-shrink:0;overflow:hidden;position:relative;
     background:var(--secondary);border:4px solid var(--card);
     box-shadow:0 0 0 3px var(--accent), 0 24px 40px -20px rgba(43,43,43,0.35);
+    cursor:pointer;transition:transform .3s ease, box-shadow .3s ease;
   }
+  .hero-avatar.expanded{
+    transform:scale(1.18);
+    box-shadow:0 0 0 3px var(--accent), 0 32px 55px -20px rgba(43,43,43,0.45);
+  }
+  .avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0;}
+  .avatar-stack{position:relative;}
+  .avatar-edit-badge{
+    position:absolute;bottom:6px;right:6px;z-index:2;
+    width:36px;height:36px;border-radius:50%;background:var(--heading);color:var(--bg);
+    display:flex;align-items:center;justify-content:center;border:3px solid var(--bg);
+    cursor:pointer;transition:transform .2s ease, background .2s ease;
+  }
+  .avatar-edit-badge:hover{background:var(--accent);transform:scale(1.08);}
+  .avatar-upload-btn{
+    font-family:var(--font-label);font-size:12px;letter-spacing:0.02em;
+    background:var(--heading);color:var(--bg);border:none;border-radius:20px;
+    padding:8px 16px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+    transition:background .2s ease;
+  }
+  .avatar-upload-btn:hover{background:var(--accent-dark);}
+  .avatar-remove-btn{
+    font-family:var(--font-label);font-size:11px;color:var(--body);background:none;border:none;
+    cursor:pointer;text-decoration:underline;text-underline-offset:2px;
+  }
+  .avatar-remove-btn:hover{color:var(--accent-dark);}
   .hero-avatar img{width:100%;height:100%;object-fit:cover;display:block;}
   .avatar-fallback{
     display:flex;align-items:center;justify-content:center;width:100%;height:100%;
@@ -243,7 +270,7 @@
     .hero-actions{flex-direction:column;align-items:stretch;}
     .hero-top{gap:18px;}
     .hero-avatar{width:120px;height:120px;}
-    .hero-name .big-j{font-size:60px;}
+    .hero-name .big-j{font-size:58px;}
     .hero-name .name-rest{font-size:24px;}
   }
 </style>
@@ -273,11 +300,24 @@
     <div>
       <div class="eyebrow">Portfolio</div>
       <div class="hero-top">
-        <div class="hero-avatar">
-          <img src="profile.jpg" alt="J. Rithik" id="profileImg" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';">
-          <div class="avatar-fallback" id="avatarFallback">
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" stroke="currentColor" stroke-width="1.6"/></svg>
+        <div class="avatar-wrap">
+          <div class="avatar-stack">
+            <div class="hero-avatar" id="heroAvatar">
+              <img src="profile.jpg" alt="J. Rithik" id="profileImg" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';">
+              <div class="avatar-fallback" id="avatarFallback" style="display:none;">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" stroke="currentColor" stroke-width="1.6"/></svg>
+              </div>
+            </div>
+            <label class="avatar-edit-badge" for="photoUpload" title="Edit photo">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 20h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </label>
           </div>
+          <label class="avatar-upload-btn" for="photoUpload">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Upload a photo...
+          </label>
+          <button class="avatar-remove-btn" id="removePhotoBtn" type="button">Remove photo</button>
+          <input type="file" id="photoUpload" accept="image/*" style="display:none;">
         </div>
         <div>
           <h1 class="hero-name"><span class="big-j">J.</span><span class="name-rest">Rithik</span></h1>
@@ -520,6 +560,43 @@
 </footer>
 
 <script>
+  const heroAvatar = document.getElementById('heroAvatar');
+  heroAvatar.addEventListener('click', () => heroAvatar.classList.toggle('expanded'));
+
+  // Profile photo editor (saved locally in this browser only)
+  const profileImg = document.getElementById('profileImg');
+  const avatarFallback = document.getElementById('avatarFallback');
+  const photoUpload = document.getElementById('photoUpload');
+  const removePhotoBtn = document.getElementById('removePhotoBtn');
+  const STORAGE_KEY = 'rithik_portfolio_profile_photo';
+
+  const savedPhoto = localStorage.getItem(STORAGE_KEY);
+  if (savedPhoto) {
+    profileImg.src = savedPhoto;
+    profileImg.style.display = 'block';
+    avatarFallback.style.display = 'none';
+  }
+
+  photoUpload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target.result;
+      profileImg.src = dataUrl;
+      profileImg.style.display = 'block';
+      avatarFallback.style.display = 'none';
+      try { localStorage.setItem(STORAGE_KEY, dataUrl); } catch (err) { console.warn('Could not save photo locally:', err); }
+    };
+    reader.readAsDataURL(file);
+  });
+
+  removePhotoBtn.addEventListener('click', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    profileImg.src = 'profile.jpg';
+    profileImg.style.display = 'block';
+  });
+
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
